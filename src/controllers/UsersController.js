@@ -249,17 +249,16 @@ class UsersController {
 
   @TryCatchErrorDecorator
   static async addEmployee(req, res) {
-    // console.log("req.body to add new employee", req.body);
+    const employees = await EmployeeModel.find({});
 
-    const corporateEmailExist = await EmployeeModel.findOne({
-      contacts: { corporateEmail: req.body.contacts.corporateEmail },
+    let existedEmployee = employees.find((el) => {
+      return (
+        el.contacts.corporateEmail === req.body.contacts.corporateEmail ||
+        el.contacts.personalEmail === req.body.contacts.personalEmail
+      );
     });
 
-    // const personalEmailExist = await EmployeeModel.findOne({
-    //   contacts: { personalEmail: req.body.contacts.personalEmail },
-    // });
-
-    if (corporateEmailExist) {
+    if (existedEmployee !== undefined) {
       throw new ClientError("This email is already registered", 409);
     }
 
@@ -275,7 +274,7 @@ class UsersController {
 
     const newEmployee = new EmployeeModel(employee);
 
-    console.log("formatted with Modal employee data", newEmployee);
+    // console.log("formatted with Modal employee data", newEmployee);
 
     await newEmployee
       .save()
