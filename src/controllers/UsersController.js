@@ -1,6 +1,6 @@
-import UserModel from "../models/UserModel";
-import CandidateModel from "../models/CandidateModel";
 import EmployeeModel from "../models/EmployeeModel";
+import CandidateModel from "../models/CandidateModel";
+// import EmployeeModel from "../models/EmployeeModel_OLD";
 import TryCatchErrorDecorator from "../decorators/TryCatchErrorDecorator";
 import PasswordService from "../services/PasswordService";
 import ClientError from "../exeptions/ClientError";
@@ -8,16 +8,16 @@ import ClientError from "../exeptions/ClientError";
 class UsersController {
   // get all users list
   @TryCatchErrorDecorator
-  static async getUsers(req, res) {
-    const users = await UserModel.find({});
+  static async getEmployeesList(req, res) {
+    const users = await EmployeeModel.find({});
     res.json(users);
   }
 
   // get current user data
   @TryCatchErrorDecorator
-  static async getCurrentUser(req, res, next) {
+  static async getEmployeeById(req, res, next) {
     // eslint-disable-next-line consistent-return
-    await UserModel.findById(req.params.id, (err, data) => {
+    await EmployeeModel.findById(req.params.id, (err, data) => {
       if (err) return next(err);
       res.json(data);
     });
@@ -67,7 +67,7 @@ class UsersController {
     const filter = { _id: userProfileData._id };
 
     if (userProfileData.isAvatarDeleted) {
-      await UserModel.findOneAndUpdate(
+      await EmployeeModel.findOneAndUpdate(
         filter,
         {
           $set: { ...updatedUser, noAvatar: true },
@@ -82,7 +82,7 @@ class UsersController {
           res.status(500).json({ error: err });
         });
     } else {
-      await UserModel.findOneAndUpdate(filter, updatedUser, { new: true })
+      await EmployeeModel.findOneAndUpdate(filter, updatedUser, { new: true })
         .then((result) => {
           console.log(result);
           return res.status(200).json(result);
@@ -98,7 +98,7 @@ class UsersController {
   @TryCatchErrorDecorator
   static async getScheduleDays(req, res, next) {
     // eslint-disable-next-line consistent-return
-    await UserModel.findById(req.params.id, (err, data) => {
+    await EmployeeModel.findById(req.params.id, (err, data) => {
       if (err) return next(err);
       res.json(data.scheduleDays);
     });
@@ -109,7 +109,7 @@ class UsersController {
   static async addScheduleDays(req, res) {
     console.log("req.body to create calendar event", req.body);
 
-    UserModel.updateOne(
+    EmployeeModel.updateOne(
       { _id: req.body.userId },
       { $addToSet: { scheduleDays: { ...req.body } } },
       { upsert: true, new: true }
@@ -136,7 +136,7 @@ class UsersController {
 
     console.log(obj);
 
-    UserModel.updateOne(
+    EmployeeModel.updateOne(
       { _id: req.body.id },
       { $addToSet: { projectsList: { ...obj } } },
       { upsert: true, new: true }
@@ -156,7 +156,7 @@ class UsersController {
   static async addInventoryUnit(req, res, next) {
     console.log("req body to add new inventoryItem for a user", req.body);
 
-    UserModel.updateOne(
+    EmployeeModel.updateOne(
       { _id: req.body.id },
       { $addToSet: { inventoryUnitsList: { ...req.body } } },
       { upsert: true, new: true }
@@ -192,7 +192,7 @@ class UsersController {
     console.log("req body to update user`s weekends list", req.body);
 
     const filter = { _id: req.body.id };
-    await UserModel.findOneAndUpdate(
+    await EmployeeModel.findOneAndUpdate(
       filter,
       {
         $set: { weekendsList: req.body },
@@ -241,30 +241,26 @@ class UsersController {
       });
   }
 
-  @TryCatchErrorDecorator
-  static async getEmployeesList(req, res) {
-    const employeesList = await EmployeeModel.find({});
-    res.status(200).json(employeesList);
-  }
+  // @TryCatchErrorDecorator
+  // static async getEmployeesList(req, res) {
+  //   const employeesList = await EmployeeModel.find({});
+  //   res.status(200).json(employeesList);
+  // }
 
   @TryCatchErrorDecorator
   static async addEmployee(req, res) {
     // console.log("req.body to add new employee", req.body);
 
-    const corpEmailExist = await EmployeeModel.findOne({
-      corporateEmail: req.body.corporateEmail,
+    const corporateEmailExist = await EmployeeModel.findOne({
+      contacts: { corporateEmail: req.body.contacts.corporateEmail },
     });
 
-    const emailExist = await EmployeeModel.findOne({
-      email: req.body.email,
-    });
+    // const personalEmailExist = await EmployeeModel.findOne({
+    //   contacts: { personalEmail: req.body.contacts.personalEmail },
+    // });
 
-    if (corpEmailExist) {
-      throw new ClientError("This corporate email is already registered", 409);
-    }
-
-    if (emailExist) {
-      throw new ClientError("This personal email is already registered", 409);
+    if (corporateEmailExist) {
+      throw new ClientError("This email is already registered", 409);
     }
 
     const employeeData = req.body;
@@ -277,9 +273,7 @@ class UsersController {
 
     if (employeeData.avatar) employee.avatar = employeeData.avatar;
 
-    // console.log("before formatted with Modal employee data", employee);
-
-    const newEmployee = new UserModel(employee);
+    const newEmployee = new EmployeeModel(employee);
 
     console.log("formatted with Modal employee data", newEmployee);
 
@@ -321,7 +315,7 @@ class UsersController {
     const userIdFilter = { _id: req.body.UserId };
     const eventIdFilter = { _id: req.body.EventId };
 
-    await UserModel.findOneAndUpdate(
+    await EmployeeModel.findOneAndUpdate(
       userIdFilter,
       {
         $pull: { scheduleDays: eventIdFilter },

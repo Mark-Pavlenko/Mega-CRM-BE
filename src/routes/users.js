@@ -3,38 +3,37 @@ import UsersController from "../controllers/UsersController";
 
 const router = express.Router();
 
-router.get("/users", UsersController.getUsers);
-// router.get("/users", Authorize.check, UsersController.index);
+// router.get("/employees", Authorize.check, UsersController.index);
 
-router.get("/user/:id", UsersController.getCurrentUser);
+router.get("/hr/getEmployeesList", UsersController.getEmployeesList);
 
-router.get("/user/:id/getScheduleDays", UsersController.getScheduleDays);
+router.get("/employee/:id", UsersController.getEmployeeById);
+
+router.get("/employee/:id/getScheduleDays", UsersController.getScheduleDays);
+
+router.post("/hr/addEmployee", UsersController.addEmployee);
 
 // create calendar request
-router.post("/user/addScheduleDays", UsersController.addScheduleDays);
+router.post("/employee/addScheduleDays", UsersController.addScheduleDays);
 
 // update full user`s profile object
-router.put("/user/updateProfile", UsersController.updateProfile);
+router.put("/employee/updateProfile", UsersController.updateProfile);
 
 // add new project to a specific user - OLD
-router.put("/user/addProject", UsersController.addProject);
+router.put("/employee/addProject", UsersController.addProject);
 
 // add inventory Unit to a specific user
-router.put("/user/addInventoryUnit", UsersController.addInventoryUnit);
+router.put("/employee/addInventoryUnit", UsersController.addInventoryUnit);
 
-router.get("/users/getWeekendsList", UsersController.getWeekendsList);
+router.get("/employeess/getWeekendsList", UsersController.getWeekendsList);
 
-router.put("/user/updateWeekendsList", UsersController.updateWeekendsList);
+router.put("/employee/updateWeekendsList", UsersController.updateWeekendsList);
 
 // get all candidates list
 router.get("/hr/getCandidatesList", UsersController.getCandidatesList);
 
 // add new employees router
 router.post("/hr/addNewCandidate", UsersController.addNewCandidate);
-
-router.get("/hr/getEmployeesList", UsersController.getEmployeesList);
-
-router.post("/hr/addEmployee", UsersController.addEmployee);
 
 router.put("/hr/updateEmployee", UsersController.updateEmployee);
 

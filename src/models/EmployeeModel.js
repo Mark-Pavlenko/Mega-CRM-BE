@@ -1,159 +1,226 @@
 import mongoose, { Schema } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
+import Double from "@mongoosejs/double";
 
-const EmployeeSchema = new Schema(
-  {},
+const refreshTokens = new Schema({
+  token: {
+    type: String,
+    required: true,
+  },
+});
+
+const UserSchema = new Schema(
+  {
+    active: Boolean,
+    salary: Double,
+    name: {
+      type: String,
+      required: true,
+      minlength: 2,
+      trim: true,
+    },
+    surname: {
+      type: String,
+      required: true,
+      minlength: 2,
+      trim: true,
+    },
+    patronymic: {
+      type: String,
+      // required: true,
+      minlength: 2,
+      trim: true,
+    },
+    age: Number,
+    date: Date,
+    sex: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    country: { type: String, trim: true },
+    city: { type: String, trim: true },
+    addedDate: Date,
+    technologies: [
+      {
+        type: String,
+        trim: true,
+        //required: true
+      },
+    ],
+    comments: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    permissions: String,
+    avatar: String,
+    noAvatar: {
+      type: Boolean,
+      required: true,
+    },
+    status: {
+      type: { type: String, trim: true },
+      title: String,
+      date: Date,
+    },
+    contacts: {
+      phone: [
+        {
+          type: String,
+          trim: true,
+        },
+      ],
+      corporateEmail: {
+        type: String,
+        unique: true,
+        trim: true,
+      },
+      personalEmail: {
+        type: String,
+        unique: true,
+        trim: true,
+      },
+
+      telegram: {
+        type: String,
+        trim: true,
+      },
+      linkedIn: {
+        type: String,
+        trim: true,
+      },
+      skype: {
+        type: String,
+        trim: true,
+      },
+      facebook: {
+        type: String,
+        trim: true,
+      },
+    },
+    company: {
+      trainee: Boolean,
+      name: String,
+      dateStart: Date,
+      status: String,
+      role: String,
+      level: String,
+      format: String,
+    },
+    posts: [
+      {
+        title: String,
+        date: Date,
+      },
+    ],
+    balance: {
+      sickDays: Number,
+      daysOff: Number,
+      vacationDays: Number,
+      remoteDays: Number,
+    },
+    languages: [
+      {
+        name: String,
+        level: String,
+      },
+    ],
+    education: [
+      {
+        name: String,
+        period: String,
+      },
+    ],
+    workExperience: [
+      {
+        companyName: String,
+        role: String,
+        period: String,
+      },
+    ],
+    additionalInformation: {
+      status: String,
+      address: String,
+      children: [
+        {
+          name: String,
+          age: Number,
+          sex: String,
+          date: Date,
+        },
+      ],
+    },
+
+    inventoryUnitsList: [
+      {
+        name: {
+          type: String,
+          trim: true,
+        },
+        model: {
+          type: String,
+          trim: true,
+        },
+        status: String,
+        dateStart: Date,
+      },
+    ],
+    events: [
+      {
+        date: Date,
+        name: String,
+        status: String,
+      },
+    ],
+    requests: [
+      {
+        name: String,
+        status: String,
+        type: { type: String, trim: true },
+        day: Date,
+        state: String,
+        reviews: [
+          {
+            name: String,
+            role: String,
+          },
+        ],
+      },
+    ],
+    reports: [
+      {
+        name: String,
+        status: String,
+        date: Date,
+        type: { type: String, trim: true },
+        dateOfCreation: String,
+      },
+    ],
+    files: [
+      {
+        name: String,
+        type: { type: String, trim: true },
+        source: String,
+        date: Date,
+      },
+    ],
+
+    password: {
+      type: String,
+      required: true,
+      minlength: 8,
+    },
+
+    refreshTokens: [refreshTokens],
+  },
   {
     timestamps: true,
   }
 );
 
-// const EmployeeSchema = new Schema(
-//   {
-//     additionalPhone: {
-//       type: String,
-//       trim: true,
-//     },
-//     address: {
-//       type: String,
-//       trim: true,
-//     },
-//     avatar: String,
-//
-//     // all Dates - should be in type Date
-//     birthDate: String,
-//
-//     children: [
-//       {
-//         childBirthDate: { type: String },
-//         childName: { type: String, trim: true },
-//         childSex: { type: String, trim: true },
-//       },
-//     ],
-//     corporateEmail: { type: String, trim: true },
-//     education: { type: String, trim: true },
-//     email: { type: String, trim: true },
-//     expirationDate: { type: String },
-//     facebook: { type: String, trim: true },
-//     inn: { type: String, trim: true },
-//     languages: [
-//       {
-//         language: {
-//           type: String,
-//           trim: true,
-//         },
-//         level: {
-//           type: String,
-//           trim: true,
-//         },
-//       },
-//     ],
-//     level: { type: String, trim: true },
-//     linkedIn: {
-//       type: String,
-//       trim: true,
-//     },
-//
-//     name: {
-//       type: String,
-//       required: true,
-//       minlength: 2,
-//       trim: true,
-//     },
-//     noAvatar: {
-//       type: Boolean,
-//       required: true,
-//     },
-//     patronymic: {
-//       type: String,
-//       // required: true,
-//       minlength: 2,
-//       trim: true,
-//     },
-//     phone: {
-//       type: String,
-//       // required: true,
-//       trim: true,
-//     },
-//     projects: [
-//       {
-//         project: {
-//           type: String,
-//           trim: true,
-//         },
-//       },
-//     ],
-//     rateHour: { type: String, trim: true },
-//     rateMonth: { type: String, trim: true },
-//     role: {
-//       type: String,
-//       trim: true,
-//     },
-//     sex: { type: String, trim: true },
-//     skype: {
-//       type: String,
-//       trim: true,
-//     },
-//     startDate: String,
-//     status: {
-//       type: String,
-//       trim: true,
-//     },
-//     surname: {
-//       type: String,
-//       // required: true,
-//       // minlength: 2,
-//       trim: true,
-//     },
-//     team: {
-//       type: String,
-//       trim: "true",
-//     },
-//     tech: [
-//       {
-//         equipmentName: {
-//           type: String,
-//           trim: true,
-//         },
-//       },
-//     ],
-//     telegram: {
-//       type: String,
-//       trim: true,
-//     },
-//     technologies: [String],
-//     weekendsList: [
-//       {
-//         weekendTypeName: {
-//           type: String,
-//           trim: true,
-//         },
-//         weekendTypeItems: [
-//           {
-//             year: {
-//               type: String,
-//               trim: true,
-//             },
-//             quantity: Number,
-//           },
-//         ],
-//       },
-//     ],
-//     workExperiences: {
-//       type: String,
-//       trim: true,
-//     },
-//     workPlace: {
-//       type: String,
-//       trim: true,
-//     },
-//   },
-//   {
-//     timestamps: true,
-//   }
-// );
-
 mongoose.set("useCreateIndex", true);
-EmployeeSchema.plugin(uniqueValidator);
+UserSchema.plugin(uniqueValidator);
 
-export default mongoose.model("Employee", EmployeeSchema);
+export default mongoose.model("Employees", UserSchema);
