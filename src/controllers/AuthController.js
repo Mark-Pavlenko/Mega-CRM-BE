@@ -1,4 +1,4 @@
-import UserModel from "../models/User";
+import UserModel from "../models/UserModel";
 import PasswordService from "../services/PasswordService";
 import ClientError from "../exeptions/ClientError";
 import TryCatchErrorDecorator from "../decorators/TryCatchErrorDecorator";

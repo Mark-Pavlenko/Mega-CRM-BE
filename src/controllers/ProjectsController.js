@@ -1,6 +1,6 @@
 import ProjectModel from "../models/Project";
 import TryCatchErrorDecorator from "../decorators/TryCatchErrorDecorator";
-import UserModel from "../models/User";
+import UserModel from "../models/UserModel";
 
 class ProjectsController {
   @TryCatchErrorDecorator
