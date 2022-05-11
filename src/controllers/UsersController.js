@@ -262,7 +262,7 @@ class UsersController {
 
   @TryCatchErrorDecorator
   static async addEmployee(req, res) {
-    console.log("req.body to add new employee", req.body);
+    // console.log("req.body to add new employee", req.body);
 
     const corpEmailExist = await EmployeeModel.findOne({
       corporateEmail: req.body.corporateEmail,
@@ -290,7 +290,9 @@ class UsersController {
 
     if (employeeData.avatar) employee.avatar = employeeData.avatar;
 
-    const newEmployee = new EmployeeModel(employee);
+    // console.log("before formatted with Modal employee data", employee);
+
+    const newEmployee = new UserModel(employee);
 
     console.log("formatted with Modal employee data", newEmployee);
 
