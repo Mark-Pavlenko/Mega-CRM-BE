@@ -69,14 +69,12 @@ const UserSchema = new Schema(
       phone: [
         {
           type: String,
-          // required: true,
           trim: true,
         },
       ],
       email: [
         {
           type: String,
-          // required: true,
           unique: true,
           trim: true,
         },
@@ -90,6 +88,10 @@ const UserSchema = new Schema(
         trim: true,
       },
       skype: {
+        type: String,
+        trim: true,
+      },
+      facebook: {
         type: String,
         trim: true,
       },

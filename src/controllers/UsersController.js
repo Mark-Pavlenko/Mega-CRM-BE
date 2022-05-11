@@ -221,28 +221,15 @@ class UsersController {
     const noAvatar = userData.avatar === undefined;
 
     const candidate = {
-      additionalEmail: userData.additionalEmail,
-      additionalPhone: userData.additionalPhone,
-      corporateEmail: userData.corporateEmail,
-      facebook: userData.facebook,
-      languages: userData.languages,
-      linkedIn: userData.linkedIn,
-      name: userData.firstName,
+      ...userData,
       noAvatar,
-      patronymic: userData.patronymic,
-      position: { ...userData.position },
-      phone: userData.phone,
-      salary: userData.salary,
-      skype: userData.skype,
-      surname: userData.lastName,
-      sex: userData.sex,
     };
 
     if (userData.avatar) candidate.avatar = userData.avatar;
 
     const newCandidate = new CandidateModel(candidate);
 
-    console.log("formatted with Modal candidate data", candidate);
+    console.log("formatted with Modal candidate data", newCandidate);
 
     await newCandidate
       .save()
