@@ -5,16 +5,6 @@ const router = express.Router();
 
 // router.get("/employees", Authorize.check, UsersController.index);
 
-// Employees API
-
-router.get("/hr/getEmployeesList", UsersController.getEmployeesList);
-
-router.get("/hr/getEmployee/:id", UsersController.getEmployeeById);
-
-router.post("/hr/addEmployee", UsersController.addEmployee);
-
-router.get("/hr/employee/:id/getScheduleDays", UsersController.getScheduleDays);
-
 //----------- Candidates API ------------
 
 router.get("/hr/getCandidatesList", UsersController.getCandidatesList);
@@ -42,11 +32,7 @@ router.put("/employee/updateWeekendsList", UsersController.updateWeekendsList);
 
 // add new employees router
 
-router.put("/hr/updateEmployee", UsersController.updateEmployee);
-
 // delete calendar event by hr
 router.post("/removeCalendarEvent", UsersController.removeCalendarEvent);
-
-router.put("/removeEmployee", UsersController.removeEmployee);
 
 export default router;
