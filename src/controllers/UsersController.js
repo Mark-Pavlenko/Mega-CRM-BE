@@ -7,15 +7,7 @@ import ClientError from "../exeptions/ClientError";
 class UsersController {
   //--------
 
-  // get candidate by IP
-  @TryCatchErrorDecorator
-  static async getCandidateById(req, res, next) {
-    // eslint-disable-next-line consistent-return
-    await CandidateModel.findById(req.params.id, (err, data) => {
-      if (err) return next(err);
-      res.json(data);
-    });
-  }
+  //-------
 
   // update user Profile
   @TryCatchErrorDecorator
@@ -195,40 +187,6 @@ class UsersController {
     )
       .then((result) => {
         res.status(200).json(result);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err });
-      });
-  }
-
-  @TryCatchErrorDecorator
-  static async getCandidatesList(req, res) {
-    const candidates = await CandidateModel.find({});
-    res.status(200).json(candidates);
-  }
-
-  @TryCatchErrorDecorator
-  static async addNewCandidate(req, res) {
-    console.log("req.body to add new candidates", req.body);
-
-    const userData = req.body;
-    const noAvatar = userData.avatar === undefined;
-
-    const candidate = {
-      ...userData,
-      noAvatar,
-    };
-
-    if (userData.avatar) candidate.avatar = userData.avatar;
-
-    const newCandidate = new CandidateModel(candidate);
-
-    console.log("formatted with Modal candidate data", newCandidate);
-
-    await newCandidate
-      .save()
-      .then((result) => {
-        res.status(201).json(result);
       })
       .catch((err) => {
         res.status(500).json({ error: err });

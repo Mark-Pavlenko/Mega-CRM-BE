@@ -1,8 +1,5 @@
 import express from "express";
 import EmployeesController from "../controllers/EmployeesController";
-import UsersController from "../controllers/UsersController";
-import router from "./users";
-// import UsersController from "../controllers/UsersController";
 
 const employeesRouter = express.Router();
 
@@ -15,6 +12,8 @@ employeesRouter.get("/hr/getEmployee/:id", EmployeesController.getEmployeeById);
 
 employeesRouter.post("/hr/addEmployee", EmployeesController.addEmployee);
 
+//TODO - fix API
+
 employeesRouter.put("/hr/updateEmployee", EmployeesController.updateEmployee);
 
 employeesRouter.put("/removeEmployee", EmployeesController.removeEmployee);
@@ -23,7 +22,5 @@ employeesRouter.put("/removeEmployee", EmployeesController.removeEmployee);
 //   "/hr/employee/:id/getScheduleDays",
 //   EmployeesController.getScheduleDays
 // );
-
-// employeesRouter;
 
 export default employeesRouter;

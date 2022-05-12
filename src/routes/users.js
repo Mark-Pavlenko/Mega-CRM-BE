@@ -3,15 +3,11 @@ import UsersController from "../controllers/UsersController";
 
 const router = express.Router();
 
-// router.get("/employees", Authorize.check, UsersController.index);
+//---- Warehouse Equipment API -----
 
-//----------- Candidates API ------------
+router.post("/addInventoryUnit", UsersController.addInventoryUnit);
 
-router.get("/hr/getCandidatesList", UsersController.getCandidatesList);
-
-router.get("/hr/getCandidate/:id", UsersController.getCandidateById);
-
-router.post("/hr/addCandidate", UsersController.addNewCandidate);
+//-----
 
 // create calendar request
 
@@ -24,7 +20,6 @@ router.put("/employee/updateProfile", UsersController.updateProfile);
 router.put("/employee/addProject", UsersController.addProject);
 
 // add inventory Unit to a specific user
-router.put("/employee/addInventoryUnit", UsersController.addInventoryUnit);
 
 router.get("/employee/getWeekendsList", UsersController.getWeekendsList);
 
