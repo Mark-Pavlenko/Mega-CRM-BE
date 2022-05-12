@@ -177,18 +177,31 @@ const UserSchema = new Schema(
     ],
     requests: [
       {
-        name: String,
-        status: String,
-        type: { type: String, trim: true },
-        day: Date,
-        state: String,
-        reviews: [
-          {
-            name: String,
-            role: String,
-          },
-        ],
+        employeeId: String,
+        employeeName: String,
+        employeeSurname: String,
+        corporateEmail: String,
+        inventoryItemId: String,
+        inventoryItemName: String,
+        conditionType: String,
+        requestType: String,
+        requestStatus: String,
+        employeeComment: String,
+        creationDate: Date,
       },
+      // {
+      //   name: String,
+      //   status: String,
+      //   type: { type: String, trim: true },
+      //   day: Date,
+      //   state: String,
+      //   reviews: [
+      //     {
+      //       name: String,
+      //       role: String,
+      //     },
+      //   ],
+      // },
     ],
     reports: [
       {
