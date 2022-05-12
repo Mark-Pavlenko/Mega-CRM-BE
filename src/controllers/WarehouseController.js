@@ -25,6 +25,25 @@ class WarehouseController {
         res.status(500).json({ error: err });
       });
   }
+
+  @TryCatchErrorDecorator
+  static async createGetInventoryRequest(req, res) {
+    console.log("createGetEquipmentRequest body", req.body);
+
+    // EmployeeModel.updateOne(
+    //   { _id: req.body.id },
+    //   { $addToSet: { inventoryUnitsList: { ...req.body } } },
+    //   { upsert: true, new: true }
+    // )
+    //   .exec()
+    //   .then((result) => {
+    //     res.status(200).json(result);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     res.status(500).json({ error: err });
+    //   });
+  }
 }
 
 export default WarehouseController;

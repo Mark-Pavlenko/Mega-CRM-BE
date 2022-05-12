@@ -10,4 +10,10 @@ warehouseRouter.get(
 
 warehouseRouter.post("/addInventoryUnit", WarehouseController.addInventoryUnit);
 
+//-----
+warehouseRouter.put(
+  "/user/createGetInventoryRequest",
+  WarehouseController.createGetInventoryRequest
+);
+
 export default warehouseRouter;

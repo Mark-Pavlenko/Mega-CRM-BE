@@ -138,25 +138,6 @@ class UsersController {
       });
   }
 
-  // add new inventoryUnit to the current user
-  @TryCatchErrorDecorator
-  static async addInventoryUnit(req, res, next) {
-    // console.log("req body to add new inventoryItem for a user", req.body);
-
-    const newInventoryUnit = new InventoryUnitModel(req.body);
-
-    console.log("formatted with Modal inventoryUnit", newInventoryUnit);
-
-    await newInventoryUnit
-      .save()
-      .then((result) => {
-        res.status(201).json(result);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err });
-      });
-  }
-
   //TODO - remake old update inventoryUnitsList to the new userSchema
 
   // EmployeeModel.updateOne(
