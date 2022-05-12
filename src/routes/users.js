@@ -5,15 +5,26 @@ const router = express.Router();
 
 // router.get("/employees", Authorize.check, UsersController.index);
 
+// Employees API
+
 router.get("/hr/getEmployeesList", UsersController.getEmployeesList);
 
-router.get("/employee/:id", UsersController.getEmployeeById);
+router.get("/hr/getEmployee/:id", UsersController.getEmployeeById);
 
-router.get("/employee/:id/getScheduleDays", UsersController.getScheduleDays);
+router.get("/hr/employee/:id/getScheduleDays", UsersController.getScheduleDays);
 
 router.post("/hr/addEmployee", UsersController.addEmployee);
 
+//----------- Candidates API ------------
+
+router.get("/hr/getCandidatesList", UsersController.getCandidatesList);
+
+router.get("/hr/getCandidate/:id", UsersController.getCandidatesList);
+
+router.post("/hr/addCandidate", UsersController.addNewCandidate);
+
 // create calendar request
+
 router.post("/employee/addScheduleDays", UsersController.addScheduleDays);
 
 // update full user`s profile object
@@ -25,15 +36,11 @@ router.put("/employee/addProject", UsersController.addProject);
 // add inventory Unit to a specific user
 router.put("/employee/addInventoryUnit", UsersController.addInventoryUnit);
 
-router.get("/employeess/getWeekendsList", UsersController.getWeekendsList);
+router.get("/employee/getWeekendsList", UsersController.getWeekendsList);
 
 router.put("/employee/updateWeekendsList", UsersController.updateWeekendsList);
 
-// get all candidates list
-router.get("/hr/getCandidatesList", UsersController.getCandidatesList);
-
 // add new employees router
-router.post("/hr/addNewCandidate", UsersController.addNewCandidate);
 
 router.put("/hr/updateEmployee", UsersController.updateEmployee);
 
