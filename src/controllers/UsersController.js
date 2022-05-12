@@ -3,6 +3,7 @@ import CandidateModel from "../models/CandidateModel";
 import TryCatchErrorDecorator from "../decorators/TryCatchErrorDecorator";
 import PasswordService from "../services/PasswordService";
 import ClientError from "../exeptions/ClientError";
+import InventoryUnitModel from "../models/InventoryUnitModel";
 
 class UsersController {
   //--------
@@ -140,22 +141,37 @@ class UsersController {
   // add new inventoryUnit to the current user
   @TryCatchErrorDecorator
   static async addInventoryUnit(req, res, next) {
-    console.log("req body to add new inventoryItem for a user", req.body);
+    // console.log("req body to add new inventoryItem for a user", req.body);
 
-    EmployeeModel.updateOne(
-      { _id: req.body.id },
-      { $addToSet: { inventoryUnitsList: { ...req.body } } },
-      { upsert: true, new: true }
-    )
-      .exec()
+    const newInventoryUnit = new InventoryUnitModel(req.body);
+
+    console.log("formatted with Modal inventoryUnit", newInventoryUnit);
+
+    await newInventoryUnit
+      .save()
       .then((result) => {
-        res.status(200).json(result);
+        res.status(201).json(result);
       })
       .catch((err) => {
-        console.log(err);
         res.status(500).json({ error: err });
       });
   }
+
+  //TODO - remake old update inventoryUnitsList to the new userSchema
+
+  // EmployeeModel.updateOne(
+  //   { _id: req.body.id },
+  //   { $addToSet: { inventoryUnitsList: { ...req.body } } },
+  //   { upsert: true, new: true }
+  // )
+  //   .exec()
+  //   .then((result) => {
+  //     res.status(200).json(result);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.status(500).json({ error: err });
+  //   });
 
   // TODO: rewrite request in order to get array of user`s weekends objects - now get the current user
   @TryCatchErrorDecorator
