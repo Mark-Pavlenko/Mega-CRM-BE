@@ -3,6 +3,12 @@ import InventoryUnitModel from "../models/InventoryUnitModel";
 
 class WarehouseController {
   @TryCatchErrorDecorator
+  static async getInventoryUnitsList(req, res) {
+    const inventoryUnitsList = await InventoryUnitModel.find({});
+    res.status(200).json(inventoryUnitsList);
+  }
+
+  @TryCatchErrorDecorator
   static async addInventoryUnit(req, res) {
     // console.log("req body to add new inventoryItem for a user", req.body);
 

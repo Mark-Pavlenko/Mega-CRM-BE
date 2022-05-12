@@ -3,18 +3,18 @@ import CandidateModel from "../models/CandidateModel";
 
 class CandidatesController {
   @TryCatchErrorDecorator
+  static async getCandidatesList(req, res) {
+    const candidates = await CandidateModel.find({});
+    res.status(200).json(candidates);
+  }
+
+  @TryCatchErrorDecorator
   static async getCandidateById(req, res, next) {
     // eslint-disable-next-line consistent-return
     await CandidateModel.findById(req.params.id, (err, data) => {
       if (err) return next(err);
       res.json(data);
     });
-  }
-
-  @TryCatchErrorDecorator
-  static async getCandidatesList(req, res) {
-    const candidates = await CandidateModel.find({});
-    res.status(200).json(candidates);
   }
 
   @TryCatchErrorDecorator
