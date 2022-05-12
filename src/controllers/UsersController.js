@@ -23,6 +23,16 @@ class UsersController {
     });
   }
 
+  // get candidate by IP
+  @TryCatchErrorDecorator
+  static async getCandidateById(req, res, next) {
+    // eslint-disable-next-line consistent-return
+    await CandidateModel.findById(req.params.id, (err, data) => {
+      if (err) return next(err);
+      res.json(data);
+    });
+  }
+
   // update user Profile
   @TryCatchErrorDecorator
   static async updateProfile(req, res, next) {

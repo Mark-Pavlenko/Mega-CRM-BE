@@ -11,15 +11,15 @@ router.get("/hr/getEmployeesList", UsersController.getEmployeesList);
 
 router.get("/hr/getEmployee/:id", UsersController.getEmployeeById);
 
-router.get("/hr/employee/:id/getScheduleDays", UsersController.getScheduleDays);
-
 router.post("/hr/addEmployee", UsersController.addEmployee);
+
+router.get("/hr/employee/:id/getScheduleDays", UsersController.getScheduleDays);
 
 //----------- Candidates API ------------
 
 router.get("/hr/getCandidatesList", UsersController.getCandidatesList);
 
-router.get("/hr/getCandidate/:id", UsersController.getCandidatesList);
+router.get("/hr/getCandidate/:id", UsersController.getCandidateById);
 
 router.post("/hr/addCandidate", UsersController.addNewCandidate);
 

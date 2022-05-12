@@ -12,6 +12,7 @@ const refreshTokens = new Schema({
 const UserSchema = new Schema(
   {
     active: Boolean,
+    ITN: String,
     salary: Double,
     name: {
       type: String,
