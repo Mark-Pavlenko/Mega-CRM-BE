@@ -3,12 +3,6 @@ import UsersController from "../controllers/UsersController";
 
 const router = express.Router();
 
-//---- Warehouse Equipment API -----
-
-router.post("/addInventoryUnit", UsersController.addInventoryUnit);
-
-//-----
-
 // create calendar request
 
 router.post("/employee/addScheduleDays", UsersController.addScheduleDays);
