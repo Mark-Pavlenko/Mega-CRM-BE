@@ -12,8 +12,13 @@ warehouseRouter.post("/addInventoryUnit", WarehouseController.addInventoryUnit);
 
 //-----
 warehouseRouter.put(
-  "/user/createGetInventoryRequest",
+  "/user/createGetNewInventoryRequest",
   WarehouseController.createGetInventoryRequest
+);
+
+warehouseRouter.put(
+  "/admin/processGetNewInventoryRequest",
+  WarehouseController.processGetInventoryRequest
 );
 
 export default warehouseRouter;

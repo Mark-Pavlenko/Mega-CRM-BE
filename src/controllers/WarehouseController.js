@@ -45,6 +45,25 @@ class WarehouseController {
         res.status(500).json({ error: err });
       });
   }
+
+  @TryCatchErrorDecorator
+  static async processGetInventoryRequest(req, res, next) {
+    // console.log("createGetEquipmentRequest body", req.body);
+
+    let necessaryUser = await EmployeeModel.find({
+      "requests._id": req.body.requestId,
+    });
+
+    let selectedRequest = necessaryUser[0].requests.find((request) => {
+      return request._id == req.body.requestId;
+    });
+
+    let test1 = JSON.parse(JSON.stringify(selectedRequest));
+    console.log({
+      ...test1,
+      requestStatus: "Accepted",
+    });
+  }
 }
 
 export default WarehouseController;

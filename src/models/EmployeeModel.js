@@ -177,10 +177,6 @@ const UserSchema = new Schema(
     ],
     requests: [
       {
-        employeeId: String,
-        employeeName: String,
-        employeeSurname: String,
-        corporateEmail: String,
         inventoryItemId: String,
         inventoryItemName: String,
         conditionType: String,

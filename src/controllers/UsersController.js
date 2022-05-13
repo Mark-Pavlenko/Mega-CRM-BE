@@ -138,22 +138,6 @@ class UsersController {
       });
   }
 
-  //TODO - remake old update inventoryUnitsList to the new userSchema
-
-  // EmployeeModel.updateOne(
-  //   { _id: req.body.id },
-  //   { $addToSet: { inventoryUnitsList: { ...req.body } } },
-  //   { upsert: true, new: true }
-  // )
-  //   .exec()
-  //   .then((result) => {
-  //     res.status(200).json(result);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     res.status(500).json({ error: err });
-  //   });
-
   // TODO: rewrite request in order to get array of user`s weekends objects - now get the current user
   @TryCatchErrorDecorator
   static async getWeekendsList(req, res, next) {
