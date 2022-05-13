@@ -156,6 +156,10 @@ const UserSchema = new Schema(
 
     inventoryUnitsList: [
       {
+        inventoryItemId: {
+          type: String,
+          trim: true,
+        },
         name: {
           type: String,
           trim: true,

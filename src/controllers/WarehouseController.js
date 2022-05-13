@@ -48,31 +48,16 @@ class WarehouseController {
 
   @TryCatchErrorDecorator
   static async processGetInventoryRequest(req, res, next) {
-    // console.log("createGetEquipmentRequest body", req.body);
-
-    // let necessaryUser = await EmployeeModel.find({
-    //   "requests._id": req.body.requestId,
-    // });
-    //
-    // let selectedRequest = necessaryUser[0].requests.find((request) => {
-    //   return request._id == req.body.requestId;
-    // });
-    //
-    // let test1 = JSON.parse(JSON.stringify(selectedRequest));
-    // console.log({
-    //   ...test1,
-    //   requestStatus: "Accepted",
-    // });
-    //
-    // //update request in user body
-    //
-    // const filter = {};
     await EmployeeModel.update(
       { "requests._id": req.body.requestId },
       {
         $set: { "requests.$.requestStatus": req.body.requestStatus },
+        $addToSet: {
+          inventoryUnitsList: {
+            inventoryItemId: req.body.inventoryItemId,
+          },
+        },
       }
-      // { new: true }
     )
       .then((result) => {
         res.status(200).json(result);
